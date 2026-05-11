@@ -44,16 +44,13 @@ app.post("/webhook", (req, res) => {
         changes.forEach((change) => {
           if (change.field === "comments") {
             const comentario = change.value.text;
+            const usuario = change.value.from.username;
 
-            console.log("Comentário detectado:");
-            console.log(comentario);
+            console.log("Novo comentário 🚀");
+            console.log("Usuário:", usuario);
+            console.log("Comentário:", comentario);
 
-            if (
-              comentario &&
-              comentario.toLowerCase().includes("eu quero")
-            ) {
-              console.log("PALAVRA ENCONTRADA 🚀");
-            }
+            // aqui depois vamos enviar DM automática
           }
         });
       }
