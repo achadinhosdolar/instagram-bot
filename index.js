@@ -20,11 +20,13 @@ app.get("/webhook", (req, res) => {
   if (mode && token) {
     if (mode === "subscribe" && token === VERIFY_TOKEN) {
       console.log("Webhook verificado!");
-      res.status(200).send(challenge);
+      return res.status(200).send(challenge);
     } else {
-      res.sendStatus(403);
+      return res.sendStatus(403);
     }
   }
+
+  return res.send("Webhook online 🚀");
 });
 
 // webhook POST (eventos do Instagram)
