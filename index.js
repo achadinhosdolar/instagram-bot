@@ -31,8 +31,34 @@ app.get("/webhook", (req, res) => {
 
 // webhook POST (eventos do Instagram)
 app.post("/webhook", (req, res) => {
+  const body = req.body;
+
   console.log("Evento recebido:");
-  console.log(JSON.stringify(req.body, null, 2));
+  console.log(JSON.stringify(body, null, 2));
+
+  if (body.object === "instagram") {
+    body.entry.forEach((entry) => {
+      const changes = entry.changes;
+
+      if (changes) {
+        changes.forEach((change) => {
+          if (change.field === "comments") {
+            const comentario = change.value.text;
+
+            console.log("Comentário detectado:");
+            console.log(comentario);
+
+            if (
+              comentario &&
+              comentario.toLowerCase().includes("eu quero")
+            ) {
+              console.log("PALAVRA ENCONTRADA 🚀");
+            }
+          }
+        });
+      }
+    });
+  }
 
   res.sendStatus(200);
 });
